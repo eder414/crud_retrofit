@@ -1,10 +1,12 @@
 package curso.clases.crud_retrofit.Interfaces;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import curso.clases.crud_retrofit.Models.InsertResponse;
 import curso.clases.crud_retrofit.Models.PostUsuario;
 import curso.clases.crud_retrofit.Models.Usuarios;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -38,4 +40,11 @@ public interface ServicesRetrofit {
     @Multipart
     @POST("WsAndroid.php")
     Call<ArrayList<Usuarios>> ObtenerUsuarios(@Part("action") RequestBody action);
+
+
+    @Multipart
+    @POST("WsAndroid.php")
+    Call<List<InsertResponse>> uploadImagen(
+            @Part List<MultipartBody.Part> Files,
+            @Part("action") RequestBody action);
 }

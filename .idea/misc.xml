@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/eder4/AndroidStudioProjects/crud_retrofit/app/src/main/res/layout/activity_main.xml" value="0.1109375" />
+        <entry key="..\:/Users/eder4/AndroidStudioProjects/crud_retrofit/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/eder4/AndroidStudioProjects/crud_retrofit/app/src/main/res/layout/recycler_usuario.xml" value="0.1" />
+        <entry key="..\:/Users/eder4/AndroidStudioProjects/crud_retrofit/app/src/main/res/xml/file_paths.xml" value="0.1" />
       </map>
     </option>
   </component>

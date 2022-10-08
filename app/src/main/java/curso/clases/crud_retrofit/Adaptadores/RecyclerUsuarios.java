@@ -56,7 +56,7 @@ public class RecyclerUsuarios extends RecyclerView.Adapter<RecyclerUsuarios.View
                 "#CC99FF",
                 "#660033",
                 "#660033",
-                "##006666",
+                "#006666",
                 "#E5CCFF",
                 "#FFFFCC"};
 
