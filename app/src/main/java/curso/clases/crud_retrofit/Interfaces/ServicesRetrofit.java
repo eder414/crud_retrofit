@@ -29,4 +29,8 @@ public interface ServicesRetrofit {
                                                    @Part("usuario_sexo") RequestBody usuario_sexo,
                                                    @Part("usuario_edad") RequestBody usuario_edad,
                                                    @Part("action") RequestBody action);
+    @Multipart
+    @POST("WsAndroid.php")
+    Call<ArrayList<InsertResponse>> BorrarUsuario(@Part("id") RequestBody id,
+                                                     @Part("action") RequestBody action);
 }

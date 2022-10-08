@@ -62,10 +62,40 @@ public class MainActivity extends AppCompatActivity implements View .OnClickList
                 Actualizar();
                 break;
             case R.id.btnBorrar:
+                Borrar();
                 break;
             case R.id.btnObtener:
                 break;
         }
+    }
+
+    private void Borrar() {
+        Retrofit retrofit = new Retrofit.Builder().
+                baseUrl("https://pirschdev.com/WsBackend/").
+                addConverterFactory(GsonConverterFactory.create()).
+                build();
+        ServicesRetrofit service = retrofit.create(ServicesRetrofit.class);
+
+        RequestBody _id = RequestBody.create(MediaType.parse("multipart/form-data"),editTextId.getText().toString());
+        RequestBody _action = RequestBody.create(MediaType.parse("multipart/form-data"),"P_DeleteUsuario");
+
+        Call<ArrayList<InsertResponse>> call = service.BorrarUsuario(_id,_action);
+
+        call.enqueue(new Callback<ArrayList<InsertResponse>>() {
+            @Override
+            public void onResponse(Call<ArrayList<InsertResponse>> call, Response<ArrayList<InsertResponse>> response) {
+                ArrayList<InsertResponse> lResponse ;
+                lResponse = response.body();
+                for(int i= 0 ; i < lResponse.size(); i++){
+                    Toast.makeText(getApplicationContext(),"Respuesta: "+lResponse.get(i).getResponse(),Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<InsertResponse>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"ERROR AL LLAMAR WEBSERVICE: "+t.toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void Actualizar() {
