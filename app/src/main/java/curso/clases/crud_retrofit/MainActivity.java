@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,8 +23,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements View .OnClickListener{
-    EditText editTextNombre,editTextEdad,editPassword,editTextSexo;
+    EditText editTextNombre,editTextEdad,editPassword,editTextSexo,editTextId;
     Button btnInsertar, btnActualizar,btnBorrar ,btnObtener;
+
+    LinearLayout linearInsertar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View .OnClickList
         editTextEdad = findViewById(R.id.editTextEdad);
         editPassword = findViewById(R.id.editPassword);
         editTextSexo = findViewById(R.id.editTextSexo);
+        editTextId = findViewById(R.id.editTextId);
 
         btnInsertar = findViewById(R.id.btnInsertar);
         btnActualizar = findViewById(R.id.btnActualizar);
@@ -43,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements View .OnClickList
         btnActualizar.setOnClickListener(this);
         btnBorrar.setOnClickListener(this);
         btnObtener.setOnClickListener(this);
+
+        linearInsertar = findViewById(R.id.linearInsertar);
     }
 
     @Override
@@ -52,12 +59,46 @@ public class MainActivity extends AppCompatActivity implements View .OnClickList
                 Insertar();
                 break;
             case R.id.btnActualizar:
+                Actualizar();
                 break;
             case R.id.btnBorrar:
                 break;
             case R.id.btnObtener:
                 break;
         }
+    }
+
+    private void Actualizar() {
+        Retrofit retrofit = new Retrofit.Builder().
+                baseUrl("https://pirschdev.com/WsBackend/").
+                addConverterFactory(GsonConverterFactory.create()).
+                build();
+        ServicesRetrofit service = retrofit.create(ServicesRetrofit.class);
+
+        RequestBody _id = RequestBody.create(MediaType.parse("multipart/form-data"),editTextId.getText().toString());
+        RequestBody _usuario_nombre = RequestBody.create(MediaType.parse("multipart/form-data"),editTextNombre.getText().toString());
+        RequestBody _usuario_password = RequestBody.create(MediaType.parse("multipart/form-data"),editPassword.getText().toString());
+        RequestBody _usuario_sexo = RequestBody.create(MediaType.parse("multipart/form-data"),editTextSexo.getText().toString());
+        RequestBody _usuario_edad = RequestBody.create(MediaType.parse("multipart/form-data"),editTextEdad.getText().toString());
+        RequestBody _action = RequestBody.create(MediaType.parse("multipart/form-data"),"P_Actualizar");
+
+        Call<ArrayList<InsertResponse>> call = service.ActualizaUsuario(_id,_usuario_nombre,_usuario_password,_usuario_sexo,_usuario_edad,_action);
+
+        call.enqueue(new Callback<ArrayList<InsertResponse>>() {
+            @Override
+            public void onResponse(Call<ArrayList<InsertResponse>> call, Response<ArrayList<InsertResponse>> response) {
+                ArrayList<InsertResponse> lResponse ;
+                lResponse = response.body();
+                for(int i= 0 ; i < lResponse.size(); i++){
+                    Toast.makeText(getApplicationContext(),"Respuesta: "+lResponse.get(i).getResponse(),Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<InsertResponse>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"ERROR AL LLAMAR WEBSERVICE: "+t.toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void Insertar() {

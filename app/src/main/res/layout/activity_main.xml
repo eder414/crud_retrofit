@@ -10,7 +10,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="15">
+        android:layout_weight="20">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -58,73 +58,99 @@
                 android:textSize="5pt"></Button>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/linearInsertar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="30"
-        android:orientation="horizontal">
+        android:layout_weight="40"
+        android:orientation="vertical">
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="33"
+            android:orientation="horizontal"
+            android:gravity="center">
             <TextView
-                android:text="Nombre:"
-                android:layout_width="match_parent"
+                android:hint="id: "
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="25"></TextView>
+                android:layout_weight="30"></TextView>
             <EditText
-                android:id="@+id/editTextNombre"
-                android:layout_width="match_parent"
+                android:id="@+id/editTextId"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="25"
-                android:hint="Nombre"></EditText>
-            <TextView
-                android:text="edad"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="25"></TextView>
-            <EditText
-                android:id="@+id/editTextEdad"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="25"
-                android:hint="edad"></EditText>
+                android:layout_weight="70"
+                android:hint="id"></EditText>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:orientation="vertical">
-            <TextView
-                android:text="Contraseña:"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="25"></TextView>
-            <EditText
-                android:id="@+id/editPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="25"
-                android:inputType="textPassword"
-                android:hint="Contraseña"></EditText>
-            <TextView
-                android:text="Sexo:"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="25"></TextView>
-            <EditText
-                android:id="@+id/editTextSexo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="25"
-                android:hint="Sexo"></EditText>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="67"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:orientation="vertical">
+                <TextView
+                    android:text="Nombre:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="25"></TextView>
+                <EditText
+                    android:id="@+id/editTextNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="25"
+                    android:hint="Nombre"></EditText>
+                <TextView
+                    android:text="edad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="25"></TextView>
+                <EditText
+                    android:id="@+id/editTextEdad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="25"
+                    android:hint="edad"></EditText>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:orientation="vertical">
+                <TextView
+                    android:text="Contraseña:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="25"></TextView>
+                <EditText
+                    android:id="@+id/editPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="25"
+                    android:inputType="textPassword"
+                    android:hint="Contraseña"></EditText>
+                <TextView
+                    android:text="Sexo:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="25"></TextView>
+                <EditText
+                    android:id="@+id/editTextSexo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="25"
+                    android:hint="Sexo"></EditText>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvUsuarios"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="55"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_weight="40"></androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

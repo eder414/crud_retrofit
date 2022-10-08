@@ -20,4 +20,13 @@ public interface ServicesRetrofit {
                                                    @Part("usuario_sexo") RequestBody usuario_sexo,
                                                    @Part("usuario_edad") RequestBody usuario_edad,
                                                    @Part("action") RequestBody action);
+
+    @Multipart
+    @POST("WsAndroid.php")
+    Call<ArrayList<InsertResponse>> ActualizaUsuario(@Part("id") RequestBody id,
+                                                    @Part("usuario_nombre") RequestBody usuario_nombre,
+                                                   @Part("usuario_password") RequestBody usuario_password,
+                                                   @Part("usuario_sexo") RequestBody usuario_sexo,
+                                                   @Part("usuario_edad") RequestBody usuario_edad,
+                                                   @Part("action") RequestBody action);
 }
