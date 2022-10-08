@@ -1,8 +1,13 @@
 package curso.clases.crud_retrofit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,9 +16,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import curso.clases.crud_retrofit.Adaptadores.RecyclerUsuarios;
 import curso.clases.crud_retrofit.Interfaces.ServicesRetrofit;
 import curso.clases.crud_retrofit.Models.InsertResponse;
 import curso.clases.crud_retrofit.Models.PostUsuario;
+import curso.clases.crud_retrofit.Models.Usuarios;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -27,7 +34,11 @@ public class MainActivity extends AppCompatActivity implements View .OnClickList
     Button btnInsertar, btnActualizar,btnBorrar ,btnObtener;
 
     LinearLayout linearInsertar;
+    RecyclerView rvUsuarios;
 
+    private LayoutInflater mInflater;
+
+    RecyclerUsuarios recyclerUsuarios;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements View .OnClickList
         btnObtener.setOnClickListener(this);
 
         linearInsertar = findViewById(R.id.linearInsertar);
+
+        rvUsuarios = findViewById(R.id.rvUsuarios);
+        mInflater = LayoutInflater.from(this);
     }
 
     @Override
@@ -65,8 +79,44 @@ public class MainActivity extends AppCompatActivity implements View .OnClickList
                 Borrar();
                 break;
             case R.id.btnObtener:
+                ObtenerUsuarios();
                 break;
         }
+    }
+
+    private void ObtenerUsuarios() {
+        Retrofit retrofit = new Retrofit.Builder().
+                baseUrl("https://pirschdev.com/WsBackend/").
+                addConverterFactory(GsonConverterFactory.create()).
+                build();
+        ServicesRetrofit service = retrofit.create(ServicesRetrofit.class);
+        RequestBody _action = RequestBody.create(MediaType.parse("multipart/form-data"),"P_ObtenerUsuario");
+
+        Call<ArrayList<Usuarios>> call = service.ObtenerUsuarios(_action);
+
+        call.enqueue(new Callback<ArrayList<Usuarios>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Usuarios>> call, Response<ArrayList<Usuarios>> response) {
+                ArrayList<Usuarios> lUsuarios ;
+                lUsuarios = response.body();
+                LlenarRecyclerView(lUsuarios);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Usuarios>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"ERROR AL LLAMAR WEBSERVICE: "+t.toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void LlenarRecyclerView(ArrayList<Usuarios> lUsuarios) {
+        recyclerUsuarios = new RecyclerUsuarios(lUsuarios,mInflater,this);
+        rvUsuarios.setHasFixedSize(true);
+        rvUsuarios.setLayoutManager(new LinearLayoutManager(this));
+        rvUsuarios.setItemAnimator(new DefaultItemAnimator());
+        rvUsuarios.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL));
+
+        rvUsuarios.setAdapter(recyclerUsuarios);
     }
 
     private void Borrar() {

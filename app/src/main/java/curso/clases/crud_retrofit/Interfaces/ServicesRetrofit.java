@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import curso.clases.crud_retrofit.Models.InsertResponse;
 import curso.clases.crud_retrofit.Models.PostUsuario;
+import curso.clases.crud_retrofit.Models.Usuarios;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -33,4 +34,8 @@ public interface ServicesRetrofit {
     @POST("WsAndroid.php")
     Call<ArrayList<InsertResponse>> BorrarUsuario(@Part("id") RequestBody id,
                                                      @Part("action") RequestBody action);
+
+    @Multipart
+    @POST("WsAndroid.php")
+    Call<ArrayList<Usuarios>> ObtenerUsuarios(@Part("action") RequestBody action);
 }
